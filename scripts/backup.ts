@@ -59,9 +59,7 @@ async function backupDatabase() {
   }
 }
 
-if (require.main === module) {
-  backup()
-}
+
 if (require.main === module) {
   backupDatabase()
 }
