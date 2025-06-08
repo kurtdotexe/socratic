@@ -1,11 +1,3 @@
-` tags.
-
-```
-Removing comments and updating the code as requested.
-```
-
-<replit_final_file>
-```typescript
 import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
