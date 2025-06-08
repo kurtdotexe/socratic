@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-import { signJWT } from '@/lib/auth'
 
 export async function POST(req: Request) {
   try {
