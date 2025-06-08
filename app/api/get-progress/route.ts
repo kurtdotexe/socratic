@@ -5,34 +5,33 @@ import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
-const initialSubjectStats = {
-  totalQuestions: 0,
-  correctAnswers: 0,
-  topics: {}
-};
-
-const initialProgress = {
-  math: { ...initialSubjectStats },
-  science: { ...initialSubjectStats },
-  language: { ...initialSubjectStats },
-  reading: { ...initialSubjectStats },
-  recentAttempts: []
-};
-
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Extract lessonId from query params
+    const { searchParams } = new URL(request.url);
+    const lessonId = searchParams.get('lessonId');
+
+    if (!lessonId) {
+      return NextResponse.json({ error: 'Lesson ID is required' }, { status: 400 });
+    }
+
+    // Use composite unique key with userId and lessonId
     const progress = await prisma.progress.findUnique({
       where: {
-        userId: session.user.id,
-      },
+        userId_lessonId: {
+          userId: session.user.id,
+          lessonId: lessonId,
+        }
+      }
     });
 
     if (!progress) {
+      // Return empty/default progress object if none found
       return NextResponse.json({
         math: {},
         science: {},
@@ -53,4 +52,4 @@ export async function GET() {
     console.error('Error fetching progress:', error);
     return NextResponse.json({ error: 'Error fetching progress' }, { status: 500 });
   }
-} 
+}
