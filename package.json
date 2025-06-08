@@ -1,0 +1,52 @@
+{
+  "name": "socratic",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "backup": "ts-node scripts/backup.ts",
+    "security-check": "npm audit && snyk test"
+  },
+  "dependencies": {
+    "@auth/prisma-adapter": "^1.0.12",
+    "@google/generative-ai": "^0.24.1",
+    "@heroicons/react": "^2.1.1",
+    "@humanwhocodes/config-array": "^0.13.0",
+    "@humanwhocodes/object-schema": "^2.0.3",
+    "@prisma/client": "^5.9.1",
+    "@types/jsonwebtoken": "^9.0.9",
+    "bcryptjs": "^2.4.3",
+    "boolean": "^3.2.0",
+    "dompurify": "^3.2.6",
+    "glob": "^11.0.2",
+    "helmet": "^7.2.0",
+    "inflight": "^1.0.6",
+    "jsdom": "^24.1.3",
+    "jsonwebtoken": "^9.0.2",
+    "next": "^14.2.29",
+    "next-auth": "^4.24.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^6.0.1",
+    "tailwindcss": "^3.4.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/dompurify": "^3.0.5",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^20.11.16",
+    "@types/react": "^18.2.52",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.1.0",
+    "postcss": "^8.4.33",
+    "prisma": "^5.9.1",
+    "snyk": "^1.1297.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
