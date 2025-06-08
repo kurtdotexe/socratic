@@ -10,18 +10,25 @@ export async function GET() {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const lessons = await prisma.lesson.findMany({
+    // Find the active curriculum for the user
+    const curriculum = await prisma.curriculum.findFirst({
       where: {
-        userId: session.user.id
+        userId: session.user.id,
+        status: 'ACTIVE'
       },
       orderBy: {
         createdAt: 'desc'
       }
     })
 
-    return NextResponse.json(lessons)
+    if (!curriculum) {
+      return new NextResponse('No active curriculum found', { status: 404 })
+    }
+
+    // Return the lessons stored as JSON in the curriculum
+    return NextResponse.json(curriculum.lessons)
   } catch (error) {
     console.error('Error fetching lessons:', error)
     return new NextResponse('Internal Server Error', { status: 500 })
   }
-} 
+}
