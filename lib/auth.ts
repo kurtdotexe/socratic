@@ -1,11 +1,3 @@
-` tags.
-
-```text
-Completed removal of comments and generated the final code.
-```
-
-```
-<replit_final_file>
 import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { prisma } from './prisma'
