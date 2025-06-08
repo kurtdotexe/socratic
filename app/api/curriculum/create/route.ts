@@ -65,13 +65,17 @@ Do not include any explanation, just return the JSON.`
 
     const result = await model.generateContent(prompt)
     const response = await result.response
-    const text = response.text()
+    const rawText = await response.text()
+    const text = rawText.trim()
+
+    // Optional: Remove code block markers if present (e.g. ```json ... ```)
+    const cleanText = text.replace(/(^```json\s*|```$)/g, '').trim()
 
     let lessonsData
     try {
-      lessonsData = JSON.parse(text)
+      lessonsData = JSON.parse(cleanText)
     } catch (parseError) {
-      console.error('Failed to parse AI response:', text)
+      console.error('Failed to parse AI response:', cleanText)
       return NextResponse.json(
         { error: 'Failed to generate curriculum' },
         { status: 500 }
